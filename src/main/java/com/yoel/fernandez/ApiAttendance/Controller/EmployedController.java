@@ -25,7 +25,7 @@ public class EmployedController {
     private final EmployedService employedService;
 
     @PostMapping("/nuevo")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    //@PreAuthorize("hasAuthority('ADMIN')")
     public void crearEmpleado(@RequestBody Employed employed) {
         employedService.crearEmpleado(employed);
     }

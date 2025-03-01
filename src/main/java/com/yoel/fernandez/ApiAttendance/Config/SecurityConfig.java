@@ -23,7 +23,8 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth.requestMatchers("/public/**").permitAll()
-                .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
+                .requestMatchers("/private/**").hasAnyAuthority("ADMIN")
+                .requestMatchers("/employed/**").permitAll()
                 .anyRequest().authenticated()
             )
             .httpBasic();   
