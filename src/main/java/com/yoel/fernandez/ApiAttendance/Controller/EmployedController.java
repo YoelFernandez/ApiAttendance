@@ -31,7 +31,7 @@ public class EmployedController {
     }
 
     @PostMapping("/nuevoDTO")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    //@PreAuthorize("hasAuthority('ADMIN')")
     public void crearEmpleadoDTO(@RequestBody EmployedDTO employedDTO) {
         employedService.createEmployeDTO(employedDTO);
     }

@@ -26,8 +26,8 @@ public class SecurityConfig {
                 .requestMatchers("/private/**").hasAnyAuthority("ADMIN")
                 .requestMatchers("/employed/**").permitAll()
                 .anyRequest().authenticated()
-            )
-            .httpBasic();   
+            );
+            //.httpBasic();   
         return http.build();
 
     }
