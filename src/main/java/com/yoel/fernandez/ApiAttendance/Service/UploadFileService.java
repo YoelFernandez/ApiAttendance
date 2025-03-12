@@ -3,7 +3,6 @@ package com.yoel.fernandez.ApiAttendance.Service;
 import java.io.IOException;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,15 +18,14 @@ import jakarta.annotation.PostConstruct;
 public class UploadFileService {
 
     private BlobContainerClient containerClient;
-
-    @Value("${AZURE_STORAGE_CONNECTION_STRING}") 
     private String connectionString;
-
-    @Value("${STORAGE_CONTAINER_NAME}") 
     private String containerName;
 
     @PostConstruct
     public void init() {
+        connectionString = System.getenv("AZURE_STORAGE_CONNECTION_STRING");
+        containerName = System.getenv("STORAGE_CONTAINER_NAME");
+
         if (connectionString == null || connectionString.isEmpty()) {
             throw new RuntimeException("Error: AZURE_STORAGE_CONNECTION_STRING no está definida.");
         }
