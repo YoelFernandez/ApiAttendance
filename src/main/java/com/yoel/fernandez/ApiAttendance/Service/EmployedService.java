@@ -20,9 +20,6 @@ public class EmployedService {
         employedRepository.save(employed);
     }
 
-    public List<Employed> listarEmpleados(){
-        return employedRepository.findAll();
-    }
 
     public List<EmployedDTO> getAllEmployees() {
         List<Employed> empleados = employedRepository.findAll();
@@ -39,6 +36,7 @@ public class EmployedService {
                 employed.getPuestoEmpleado(),
                 employed.getSueldoEmpleado(),
                 employed.getTelefonoEmpleado(),
+                employed.getUrlImage(),
                 employed.getCorreoEmpleado(),
                 employed.getPassword(),
                 employed.getRole()
@@ -61,6 +59,26 @@ public class EmployedService {
         return convertToDTO(savedEmployed);
     }
 
+
+    // Método para crear un empleado a partir de un DTO
+    public EmployedDTO createEmployeDTOWhithImage(EmployedDTO employedDTO, String imageUrl) {
+        Employed employed = new Employed();
+        employed.setCodigoEmpleado(employedDTO.getCodigoEmpleado());
+        employed.setNombresEmpleado(employedDTO.getNombresEmpleado());
+        employed.setApellidosEmpleado(employedDTO.getApellidosEmpleado());
+        employed.setPuestoEmpleado(employedDTO.getPuestoEmpleado());
+        employed.setSueldoEmpleado(employedDTO.getSueldoEmpleado());
+        employed.setTelefonoEmpleado(employedDTO.getTelefonoEmpleado());
+        employed.setCorreoEmpleado(employedDTO.getCorreoEmpleado());
+        employed.setPassword(employedDTO.getPassword());
+        employed.setUrlImage(imageUrl);
+        employed.setRole(employedDTO.getRole());
+        Employed savedEmployed = employedRepository.save(employed);
+        return convertToDTO(savedEmployed);
+    }
+
+
+
     public void eliminarEmpleado(String codigo){
         if(employedRepository.existsById(codigo)){
             employedRepository.deleteById(codigo);
@@ -78,12 +96,18 @@ public class EmployedService {
             empleado.setSueldoEmpleado(employedDTO.getSueldoEmpleado());
             empleado.setTelefonoEmpleado(employedDTO.getTelefonoEmpleado());
             empleado.setCorreoEmpleado(employedDTO.getCorreoEmpleado());
-
             Employed employedActualizado = employedRepository.save(empleado);
             return convertToDTO(employedActualizado);
 
         })
         .orElseThrow(() -> new RuntimeException("Empleado no encontrado con ID: " + codigo));
     }
+
+
+    public EmployedDTO retornarPorId(String codigo){
+        return employedRepository.findById(codigo)
+        .map(this::convertToDTO)
+        .orElseThrow(() -> new RuntimeException("Empleado no encontrado con ID: " + codigo));
+}
 
 }

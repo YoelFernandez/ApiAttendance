@@ -1,6 +1,7 @@
 package com.yoel.fernandez.ApiAttendance.Config;
 
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -9,9 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.config.Customizer;
-
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -24,9 +22,10 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth.requestMatchers("/public/**").permitAll()
                 .requestMatchers("/private/**").hasAnyAuthority("ADMIN")
+                .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .anyRequest().authenticated()
             )
-            .httpBasic();   
+            .httpBasic();
         return http.build();
 
     }

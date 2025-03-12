@@ -19,6 +19,7 @@ public class EmployedDTO {
     private puestoEmpleado puestoEmpleado;
     private BigDecimal sueldoEmpleado;
     private String telefonoEmpleado;
+    private String imageURL;
     private String correoEmpleado;
     private String password;
     private RolEmpleado role;

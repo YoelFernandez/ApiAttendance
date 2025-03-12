@@ -68,4 +68,31 @@ public class GastosGeneralesService {
         return listaGastos.stream().map(this::convert).collect(Collectors.toList());
     }
 
+    public void eliminarGasto(Integer codigo) {
+        if(gastosGeneralesRepository.existsById(codigo)){
+            gastosGeneralesRepository.deleteById(codigo);
+        }else{
+            throw new RuntimeException("Gasto no encontrado con el codigo: " + codigo);
+        }
+    }
+
+    public GastosGeneralesDTO actualGastoGeneralDTO(Integer codigo, GastosGeneralesDTO gastosGeneralesDTO) {
+        return gastosGeneralesRepository.findById(codigo).map(gasto ->{
+            gasto.setDescripcionGastosGenerales(gastosGeneralesDTO.getDescripcionGastosGenerales());
+            gasto.setEstadoPago(GastosGenerales.estadoPago.valueOf(gastosGeneralesDTO.getEstadoPago()));
+            gasto.setFechaEntrega(gastosGeneralesDTO.getFechaEntrega());
+            gasto.setMedioPago(GastosGenerales.medioPago.valueOf(gastosGeneralesDTO.getMedioPago()));   
+            gasto.setMontoGastosGenerales(gastosGeneralesDTO.getMontoGastosGenerales());
+
+            GastosGenerales gastoActualizado = gastosGeneralesRepository.save(gasto);
+            return convert(gastoActualizado);
+
+        })
+        .orElseThrow(() -> new RuntimeException("Gasto no encontrado con ID: " + codigo));
+    }
+
+    public GastosGeneralesDTO retornarPorId(Integer codigo) {
+        return gastosGeneralesRepository.findById(codigo).map(this::convert).orElseThrow(() -> new RuntimeException("Gasto no encontrado con ID: " + codigo));
+    }
+
 }

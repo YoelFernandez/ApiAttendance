@@ -45,6 +45,30 @@ public class ClientService {
             
     }
 
+    public void eliminarCliente(String codigo) {
+        if(clientRepository.existsById(codigo)){
+            clientRepository.deleteById(codigo);
+        }else{
+            throw new UnsupportedOperationException("Cliente no encontrado: codigo --> " + codigo);
+        }
+    }
+
+    public ClientDTO actualClienteDTO(String codigo, ClientDTO clientDTO) {
+        return clientRepository.findById(codigo).map(client->{
+            client.setCorreoCliente(clientDTO.getCorreoCliente());
+            //client.setFechaCreacion(clientDTO.get());
+            client.setNombreCliente(clientDTO.getNombreCliente());
+            client.setTelefonoCliente(clientDTO.getTelefonoCliente());
+            Client clientReturn = clientRepository.save(client);
+            return convertirDTO(clientReturn);
+
+        }).orElseThrow(()-> new RuntimeException("Cliente no encontrado: codigo --> " + codigo));
+    }
+
+    public ClientDTO retornarPorId(String codigo) {
+        return clientRepository.findById(codigo).map(this::convertirDTO).orElseThrow(()-> new RuntimeException("Cliente no encontrado: codigo --> " + codigo));
+    }
+
 
 
 }

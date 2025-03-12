@@ -59,5 +59,35 @@ public class IngresosService {
         return listaIngresos.stream().map(this::convert).collect(Collectors.toList());
     }
 
+    public void eliminarIngreso(String codigo) {
+        if(ingresosRepository.existsById(codigo)){
+            ingresosRepository.deleteById(codigo);
+        }else{
+            throw new RuntimeException("Ingreso no encontrado con el codigo: " + codigo);
+        }
+    }
+
+    public IngresosDTO actualIngresoDTO(String codigo, IngresosDTO ingresosDTO) {
+        return ingresosRepository.findById(codigo).map(ingreso ->{
+            ingreso.setEstadoPago(Ingresos.estadoPago.valueOf(ingresosDTO.getEstadoPago()));
+            ingreso.setFechaIngresos(ingresosDTO.getFechaIngresos());
+            ingreso.setMediPago(Ingresos.medioPago.valueOf(ingresosDTO.getMedioPago()));
+            ingreso.setMontoServicio(ingresosDTO.getMontoServicio());
+
+            Ingresos ingresoActualizado = ingresosRepository.save(ingreso);
+            return convert(ingresoActualizado);
+
+        })
+        .orElseThrow(() -> new RuntimeException("Ingreso no encontrado con ID: " + codigo));
+    }
+
+    public IngresosDTO retornarPorId(String codigo) {
+        return ingresosRepository.findById(codigo).map(this::convert)
+               .orElseThrow(() -> new RuntimeException("Ingreso no encontrado con ID: " + codigo));
+
+    }
+
+
+
 
 }

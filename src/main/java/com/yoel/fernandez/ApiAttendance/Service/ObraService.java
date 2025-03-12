@@ -103,4 +103,37 @@ public class ObraService {
         return listaObras.stream().map(this::toObraDTO).collect(Collectors.toList());
     }
 
+    public void eliminarObra(String codigo) {
+        if(obraRepository.existsById(codigo)){
+            obraRepository.deleteById(codigo);
+        }else{
+            throw new RuntimeException("Obra no encontrado con el codigo: " + codigo);
+        }
+    }
+
+    public ObraDTO actualObraDTO(String codigo, ObraDTO obraDTO) {
+        
+    return obraRepository.findById(codigo).map(obra ->{
+        obra.setAbreviatura(obraDTO.getAbreviatura());
+        obra.setAdicionales(obraDTO.getAdicionales());
+        obra.setEstado(Obra.estadoObra.valueOf(obraDTO.getEstado()));
+        obra.setFechaFin(obraDTO.getFechaFin());
+        obra.setFechaInicio(obraDTO.getFechaInicio());
+        obra.setMontoContratado(obraDTO.getMontoContratado());
+        obra.setNombreProyecto(obraDTO.getNombreProyecto());
+
+        
+        Obra obraActualizado = obraRepository.save(obra);
+        return toObraDTO(obraActualizado);
+
+    })
+    .orElseThrow(() -> new RuntimeException("Ingreso no encontrado con ID: " + codigo));
+
+    }
+
+    public ObraDTO retornarPorId(String codigo) {
+        return obraRepository.findById(codigo).map(this::toObraDTO)
+               .orElseThrow(() -> new RuntimeException("Obra no encontrado con ID: " + codigo));
+    }
+
 }

@@ -58,4 +58,32 @@ public class PagoService {
 
     }
 
+    public void eliminarPago(String codigo) {
+        if(pagoRepository.existsById(codigo)){
+            pagoRepository.deleteById(codigo);
+        }else{
+            throw new RuntimeException("Pago no encontrado con el codigo: " + codigo);
+        }
+    }
+
+    public PagoDTO actualPagoDTO(String codigo, PagoDTO pagoDTO) {
+        return pagoRepository.findById(codigo).map(pago ->{
+            pago.setEstadoPago(Pago.estadoPago.valueOf(pagoDTO.getEstadoPago()));
+            pago.setFechaPago(pagoDTO.getFechaPago());
+            pago.setMedioPago(Pago.medioPago.valueOf(pagoDTO.getMedioPago()));
+            pago.setMontoPago(pagoDTO.getMontoPago());
+
+            Pago pagoActualizado = pagoRepository.save(pago);
+            return convertPago(pagoActualizado);
+
+            })
+            .orElseThrow(() -> new RuntimeException("Ingreso no encontrado con ID: " + codigo));
+    }
+
+    public PagoDTO retornarPorId(String codigo) {
+        return pagoRepository.findById(codigo).map(this::convertPago)
+        .orElseThrow(() -> new RuntimeException("Pago no encontrado con ID: " + codigo));
+
+    }
+
 }

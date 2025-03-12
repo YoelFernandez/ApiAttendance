@@ -75,4 +75,35 @@ public class AsistenciaService {
         return asistenciaDTO;
     }
 
+
+    public void eliminarAsistencia(Integer codigo) {
+        if(asistenciaRepository.existsById(codigo)){
+            asistenciaRepository.deleteById(codigo);
+        }else{
+            throw new UnsupportedOperationException("Asistencia no encontrada: codigo --> " + codigo);
+        }
+    }
+
+
+    public AsistenciaDTO actualizarAsistenciaDTO(Integer codigo, AsistenciaDTO asistenciaDTO) {
+        return asistenciaRepository.findById(codigo).map(asistencia ->{
+            asistencia.setAlmuerzo(asistenciaDTO.getAlmuerzo());
+            asistencia.setFecha(asistenciaDTO.getFecha());
+            asistencia.setHoraIngreso(asistenciaDTO.getHoraIngreso());
+            asistencia.setHoraIngreso(asistenciaDTO.getHoraIngreso());
+            asistencia.setHoraSalida(asistenciaDTO.getHoraSalida());
+            asistencia.setHoraIngreso(asistenciaDTO.getHoraIngreso());
+            Asistencia asistenciaReturn = asistenciaRepository.save(asistencia);
+            return converDto(asistenciaReturn);
+        })
+        .orElseThrow(() -> new RuntimeException("Empleado no encontrado con ID: " + codigo));
+        
+    }
+
+
+    public AsistenciaDTO retornarPorId(Integer codigo) {
+        return asistenciaRepository.findById(codigo).map(this::converDto)
+        .orElseThrow(() -> new RuntimeException("Asistencia no encontrado con ID: " + codigo));
+    }
+
 }

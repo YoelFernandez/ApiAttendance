@@ -39,6 +39,9 @@ public class Employed {
     @Column(nullable = false,unique = true, length = 15)
     private String telefonoEmpleado;
 
+    
+    private String urlImage;
+
     @Column( nullable = false,unique = true, length = 50)
     private String correoEmpleado;  
 
