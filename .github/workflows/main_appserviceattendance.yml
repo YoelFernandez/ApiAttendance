@@ -55,6 +55,10 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_8495DD2772894AA089FD5B9A9A5DD93B }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_986ACE27111849428BA1D54D31011CAD }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_3FE1507C6E5D46D9AAB01ECF61EB2EE2 }}
+          
+      - name: Set environment variables
+        run: |
+          echo "AZURE_STORAGE_CONNECTION_STRING=${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" >> $GITHUB_ENV
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
