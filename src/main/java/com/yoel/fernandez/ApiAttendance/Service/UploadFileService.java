@@ -20,14 +20,12 @@ public class UploadFileService {
 
     private BlobContainerClient containerClient;
     
-    
 
-    @Value("${azure.storage.connection-string}")
+    @Value("${AZURE_STORAGE_CONNECTION_STRING}")
     private String connectionString;
 
-    @Value("${storage.container.name}")
+    @Value("${STORAGE_CONTAINER_NAME}")
     private String containerName;
-    
 
     @PostConstruct
     public void init() {
