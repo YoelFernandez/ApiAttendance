@@ -30,10 +30,7 @@ public class IngresosController {
         ingresosService.crearIngreso(ingresos);
     }
 
-    @GetMapping("/listar")
-    public List<Ingresos> listarIngresos(){
-        return ingresosService.listarIngresos();
-    }
+    
 
     @GetMapping("/listarDTO")
     public List<IngresosDTO> listarIngresosDTO(){

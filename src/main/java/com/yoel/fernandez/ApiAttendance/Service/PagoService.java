@@ -24,9 +24,7 @@ public class PagoService {
 
     }
 
-    public List<Pago> listaPagos(){
-        return pagoRepository.findAll();
-    }
+   
 
     public PagoDTO convertPago(Pago pago){
         return new PagoDTO(

@@ -23,9 +23,7 @@ public class IngresosService {
         ingresosRepository.save(ingresos);
     }
 
-    public List<Ingresos> listarIngresos(){
-        return ingresosRepository.findAll();
-    }
+  
 
 
     public void crearIngreso2(IngresosDTO ingresosDTO) {

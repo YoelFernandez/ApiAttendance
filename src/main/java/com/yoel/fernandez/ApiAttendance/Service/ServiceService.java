@@ -22,9 +22,7 @@ public class ServiceService {
         serviceRepository.save(service);
     }
 
-    public List<ServiceEntity> listarServicios(){
-        return serviceRepository.findAll();
-    }
+    
 
     public ServiceEntityDTO convertirDTO(ServiceEntity serviceEntity){
         return  new ServiceEntityDTO(

@@ -30,10 +30,6 @@ public class ObraService {
         obraRepository.save(obra);
     }
 
-    public List<Obra> listarObras(){
-        return obraRepository.findAll();
-    }
-
     public Obra obtenerDatoId(String codigo){
         return obraRepository.findById(codigo).orElse(null);
     }

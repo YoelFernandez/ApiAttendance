@@ -22,11 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AsistenciaController {
     private final AsistenciaService asistenciaService;
-    
-    @GetMapping("/listar")
-    public List<Asistencia> listarAsistencias(){
-        return asistenciaService.listarAsistencias();
-    }
+ 
 
     @GetMapping("/listarDTO")
     public List<AsistenciaDTO> listarAsistenciasDTO(){

@@ -29,11 +29,7 @@ public class PagoController {
     private void crearPago(@RequestBody Pago pago){
         pagoService.crearPago(pago);
     }
-
-    @GetMapping("/listar")
-    private List<Pago> listaPagos(){
-        return pagoService.listaPagos();
-    }
+    
 
     @PostMapping("/nuevoDTO")
     private ResponseEntity<String> crearPagoDTO(@RequestBody PagoDTO pago){

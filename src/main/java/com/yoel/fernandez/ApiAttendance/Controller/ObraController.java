@@ -32,10 +32,6 @@ public class ObraController {
         obraService.crearObra(obra);
     }
 
-    @GetMapping("/listar")
-    public List<Obra> listarObras(){
-        return obraService.listarObras();
-    }
 
     @PostMapping("/nuevoDTO")
     @PreAuthorize("hasAuthority('ADMIN')")

@@ -40,12 +40,6 @@ public class ServiceController {
 
     }
 
-
-    @GetMapping("/listar")
-    private List<ServiceEntity> listarServicios(){
-        return serviceService.listarServicios();
-    }
-
     
     @GetMapping("/listarDTO")
     private List<ServiceEntityDTO> listarServiciosDTO(){

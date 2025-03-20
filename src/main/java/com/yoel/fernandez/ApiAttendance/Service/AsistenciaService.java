@@ -53,11 +53,6 @@ public class AsistenciaService {
     }
 
 
-    public List<Asistencia> listarAsistencias(){
-        return asistenciaRepository.findAll();
-    }
-
-
     public List<AsistenciaDTO> listarAsistenciasDTO() {
         List<Asistencia> asistencias = asistenciaRepository.findAll();
         return asistencias.stream().map(this::converDto).collect(Collectors.toList());

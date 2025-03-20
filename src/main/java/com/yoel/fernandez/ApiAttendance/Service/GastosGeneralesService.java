@@ -29,10 +29,7 @@ public class GastosGeneralesService {
         gastosGeneralesRepository.save(gastosGenerales);
     }
 
-    public List<GastosGenerales> listaGastosGenerales(){
-        return gastosGeneralesRepository.findAll();
-    }
-
+   
     public void nuevoGastoDTO(GastosGeneralesDTO gastosGeneralesDTO){
         GastosGenerales gastosGenerales = new GastosGenerales();
         gastosGenerales.setIdGastosGenerales(gastosGeneralesDTO.getIdGastosGenerales());

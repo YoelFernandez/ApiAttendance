@@ -31,10 +31,6 @@ public class GastosGeneralesController {
         gastosGeneralesService.nuevoGasto(gastosGenerales);
     }
 
-    @GetMapping("/listar")
-    public List<GastosGenerales> listarGastos(){
-        return gastosGeneralesService.listaGastosGenerales();
-    }
     
     @PostMapping("/nuevoDTO")
     public ResponseEntity<String> crearGastoGeneralDTO(@RequestBody GastosGeneralesDTO gastosGeneralesDTO){
