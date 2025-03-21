@@ -7,6 +7,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.yoel.fernandez.ApiAttendance.DTO.EmployedDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -15,23 +17,27 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SecurityUser implements UserDetails{
     
-    private Employed employed;
+    private EmployedDTO employedDTO;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(employed.getRole().name()));
+        return Collections.singletonList(new SimpleGrantedAuthority(employedDTO.getRole().name()));
     }
 
    
 
     @Override
     public String getPassword() {
-        return employed.getPassword();
+        return employedDTO.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return employed.getCorreoEmpleado();
+        return employedDTO.getCorreoEmpleado();
+    }
+
+    public EmployedDTO getEmployed() {
+        return employedDTO;
     }
 
 
