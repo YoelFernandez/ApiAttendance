@@ -23,8 +23,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class JwtFilter extends OncePerRequestFilter {
     
     private final UserDetailsService userDetailsService;
-    private static final String SECRET_KEY = "tuClaveSecretaMuySeguraQueDebeSerMasLarga"; // Usa una clave segura
-
+    private static final String SECRET_KEY = "TuClaveSecretaSuperSegura1234567890123459292929291959294959295929592929492942939293"; // Mínimo 32 caracteres
     private final Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 
     public JwtFilter(UserDetailsService userDetailsService) {
