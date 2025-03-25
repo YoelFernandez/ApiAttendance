@@ -18,7 +18,7 @@ public class JwtUtil {
             return Jwts.builder()
                     .setSubject(username)
                     .setIssuedAt(new Date())
-                    .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hora
+                    .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 *24*7)) // 1 hora
                     .signWith(SECRET_KEY, io.jsonwebtoken.SignatureAlgorithm.HS256)
                     .compact();
         } catch (Exception e) {

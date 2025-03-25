@@ -1,6 +1,8 @@
 package com.yoel.fernandez.ApiAttendance.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +14,7 @@ import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
 import com.azure.storage.blob.models.BlobHttpHeaders;
+import com.azure.storage.blob.models.BlobItem;
 
 import jakarta.annotation.PostConstruct;
 
@@ -29,8 +32,6 @@ public class UploadFileService {
 
     @PostConstruct
     public void init() {
-    //     connectionString = System.getenv("AZURE_STORAGE_CONNECTION_STRING");
-    //     containerName = System.getenv("STORAGE_CONTAINER_NAME");
 
         if (connectionString == null || connectionString.isEmpty()) {
             throw new RuntimeException("Error: AZURE_STORAGE_CONNECTION_STRING no está definida.");
@@ -59,5 +60,17 @@ public class UploadFileService {
         blobClient.setHttpHeaders(headers); 
 
         return blobClient.getBlobUrl();
+    }
+
+    public List<String>  listarURL(){
+        List<String> urls = new ArrayList<>();
+    
+        // Iterar sobre los blobs en el contenedor
+        for (BlobItem blobItem : containerClient.listBlobs()) {
+            String url = containerClient.getBlobClient(blobItem.getName()).getBlobUrl();
+            urls.add(url);
+        }
+        
+        return urls;
     }
 }

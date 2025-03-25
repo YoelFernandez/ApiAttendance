@@ -82,7 +82,7 @@ public class EmployedController {
 
 
     //Luego esto se borra porque es solo para probar si funciona
-    @GetMapping("/probandoa")
+    @GetMapping("/admi")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String funciona() {
         return "siii administrador";

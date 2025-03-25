@@ -1,8 +1,10 @@
 package com.yoel.fernandez.ApiAttendance.Controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +30,11 @@ public class UploadFileController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("error", "Error al subir la imagen: " + e.getMessage()));
         }
+    }
+
+    @GetMapping("/listar")
+    public List<String> listarImagenes(){
+        return uploadFileService.listarURL();
     }
 
 }
