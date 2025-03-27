@@ -6,7 +6,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.yoel.fernandez.ApiAttendance.DTO.EmployedDTO;
-import com.yoel.fernandez.ApiAttendance.Entity.Employed;
 import com.yoel.fernandez.ApiAttendance.Entity.SecurityUser;
 import com.yoel.fernandez.ApiAttendance.Repositoy.EmployedRepository;
 

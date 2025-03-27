@@ -37,7 +37,7 @@ public class ClientService {
 
     public void crearClienteDTO(ClientDTO clientDTO){
         Client client  = new Client();
-            client.setCodCliente(clientDTO.getCodCliente());
+            //client.setCodCliente(clientDTO.getCodCliente());
             client.setNombreCliente(clientDTO.getNombreCliente());
             client.setTelefonoCliente(clientDTO.getTelefonoCliente());
             client.setCorreoCliente(clientDTO.getCorreoCliente());
