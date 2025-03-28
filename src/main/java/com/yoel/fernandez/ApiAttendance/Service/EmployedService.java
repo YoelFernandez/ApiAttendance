@@ -94,6 +94,8 @@ public class EmployedService {
             empleado.setSueldoEmpleado(employedDTO.getSueldoEmpleado());
             empleado.setTelefonoEmpleado(employedDTO.getTelefonoEmpleado());
             empleado.setCorreoEmpleado(employedDTO.getCorreoEmpleado());
+            empleado.setRole(employedDTO.getRole());
+            empleado.setPassword(employedDTO.getPassword());
             Employed employedActualizado = employedRepository.save(empleado);
             return convertToDTO(employedActualizado);
 
