@@ -16,9 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class EmployedService {
 
     private final EmployedRepository employedRepository;
-    public void crearEmpleado(Employed employed){
-        employedRepository.save(employed);
-    }
+   
 
 
     public List<EmployedDTO> getAllEmployees() {
@@ -30,7 +28,7 @@ public class EmployedService {
 
     public EmployedDTO convertToDTO(Employed employed) {
         return new EmployedDTO(
-                employed.getCodigoEmpleado(),
+                String.valueOf(employed.getCodigoEmpleado()),
                 employed.getNombresEmpleado(),
                 employed.getApellidosEmpleado(),
                 employed.getPuestoEmpleado(),
@@ -46,7 +44,7 @@ public class EmployedService {
     // Método para crear un empleado a partir de un DTO
     public EmployedDTO createEmployeDTO(EmployedDTO employedDTO) {
         Employed employed = new Employed();
-        employed.setCodigoEmpleado(employedDTO.getCodigoEmpleado());
+        //employed.setCodigoEmpleado(employedDTO.getCodigoEmpleado());
         employed.setNombresEmpleado(employedDTO.getNombresEmpleado());
         employed.setApellidosEmpleado(employedDTO.getApellidosEmpleado());
         employed.setPuestoEmpleado(employedDTO.getPuestoEmpleado());
@@ -63,7 +61,7 @@ public class EmployedService {
     // Método para crear un empleado a partir de un DTO
     public EmployedDTO createEmployeDTOWhithImage(EmployedDTO employedDTO, String imageUrl) {
         Employed employed = new Employed();
-        employed.setCodigoEmpleado(employedDTO.getCodigoEmpleado());
+        //employed.setCodigoEmpleado(employedDTO.getCodigoEmpleado());
         employed.setNombresEmpleado(employedDTO.getNombresEmpleado());
         employed.setApellidosEmpleado(employedDTO.getApellidosEmpleado());
         employed.setPuestoEmpleado(employedDTO.getPuestoEmpleado());

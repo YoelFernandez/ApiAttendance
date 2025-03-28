@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yoel.fernandez.ApiAttendance.DTO.IngresosDTO;
-import com.yoel.fernandez.ApiAttendance.Entity.Ingresos;
 import com.yoel.fernandez.ApiAttendance.Service.IngresosService;
 
 import lombok.RequiredArgsConstructor;
@@ -24,11 +23,6 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/ingresos")
 public class IngresosController {
     private final IngresosService ingresosService;
-    
-    @PostMapping("/nuevo")
-    public void crearIngreso(@RequestBody Ingresos ingresos){
-        ingresosService.crearIngreso(ingresos);
-    }
 
     
 

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yoel.fernandez.ApiAttendance.DTO.ServiceEntityDTO;
-import com.yoel.fernandez.ApiAttendance.Entity.ServiceEntity;
 import com.yoel.fernandez.ApiAttendance.Service.ServiceService;
 
 import lombok.RequiredArgsConstructor;
@@ -27,12 +26,6 @@ public class ServiceController {
     private final ServiceService serviceService;
 
 
-    
-    @PostMapping("/nuevo")
-    //@PreAuthorize("HasAuthority('ADMIN')")
-    private void crearServicio(@RequestBody ServiceEntity service){
-        serviceService.crearServicio(service);
-    }
 
     @PostMapping("/nuevoDTO")
     private ServiceEntityDTO nuevoServicio(@RequestBody ServiceEntityDTO serviceEntityDTO){

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yoel.fernandez.ApiAttendance.DTO.EmployedDTO;
-import com.yoel.fernandez.ApiAttendance.Entity.Employed;
 import com.yoel.fernandez.ApiAttendance.Service.EmployedService;
 import com.yoel.fernandez.ApiAttendance.Service.UploadFileService;
 
@@ -32,12 +31,7 @@ public class EmployedController {
     private final EmployedService employedService;
     private final UploadFileService uploadFileService;
 
-    @PostMapping("/nuevo")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public void crearEmpleado(@RequestBody Employed employed) {
-        employedService.crearEmpleado(employed);
-    }
-
+    
     @PostMapping("/nuevoDTO")
     @PreAuthorize("hasAuthority('ADMIN')")
     public void crearEmpleadoDTO(@RequestBody EmployedDTO employedDTO) {

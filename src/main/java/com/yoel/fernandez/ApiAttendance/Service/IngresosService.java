@@ -19,16 +19,10 @@ public class IngresosService {
     private final IngresosRepository ingresosRepository;
     private final ServiceRepository serviceRepository;
 
-    public void crearIngreso(Ingresos ingresos){
-        ingresosRepository.save(ingresos);
-    }
-
-  
-
 
     public void crearIngreso2(IngresosDTO ingresosDTO) {
         Ingresos ingresos = new Ingresos();
-        ingresos.setCodigoIngreso(ingresosDTO.getCodigoIngreso());
+        //ingresos.setCodigoIngreso(ingresosDTO.getCodigoIngreso());
         ingresos.setMontoServicio(ingresosDTO.getMontoServicio());
         ingresos.setMediPago(Ingresos.medioPago.valueOf(ingresosDTO.getMedioPago()));
         ingresos.setEstadoPago(Ingresos.estadoPago.valueOf(ingresosDTO.getEstadoPago()));
@@ -43,12 +37,12 @@ public class IngresosService {
 
     public IngresosDTO convert(Ingresos ingresos){
         return new IngresosDTO(
-            ingresos.getCodigoIngreso(),
+            String.valueOf(ingresos.getCodigoIngreso()),
             ingresos.getMontoServicio(),
             ingresos.getMediPago().name(),
             ingresos.getEstadoPago().name(),
             ingresos.getFechaIngresos(),
-            ingresos.getService().getCodigoServicio()
+            String.valueOf(ingresos.getService().getCodigoServicio())
             );
     }
 

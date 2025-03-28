@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yoel.fernandez.ApiAttendance.DTO.ClientDTO;
-import com.yoel.fernandez.ApiAttendance.Entity.Client;
 import com.yoel.fernandez.ApiAttendance.Service.ClientService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,11 +25,7 @@ public class ClientController {
     private final ClientService clientService;
      
 
-    @PostMapping("/nuevo")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public void nuevoClient(@RequestBody Client client){
-        clientService.crearCliente(client);
-    }
+    
 
     @PostMapping("/nuevoDTO")
     @PreAuthorize("hasAuthority('ADMIN')")

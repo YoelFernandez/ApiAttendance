@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yoel.fernandez.ApiAttendance.DTO.ObraDTO;
-import com.yoel.fernandez.ApiAttendance.Entity.Obra;
 import com.yoel.fernandez.ApiAttendance.Service.ObraService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,12 +24,6 @@ import lombok.RequiredArgsConstructor;
 public class ObraController {
 
     private final ObraService obraService; 
-
-    @PostMapping("/nuevo")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public void crearObra(@RequestBody Obra obra){
-        obraService.crearObra(obra);
-    }
 
 
     @PostMapping("/nuevoDTO")

@@ -8,6 +8,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -27,7 +29,8 @@ import lombok.NoArgsConstructor;
 public class Pago {
 
     @Id
-    private String codigoPago;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 🔹 Auto-generación del código
+    private Integer codigoPago;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal montoPago; 

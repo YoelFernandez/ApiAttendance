@@ -29,7 +29,7 @@ public class GastosGenerales {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idGastosGenerales;
 
-    @Column(name = "descripcion_gastos_generales", length = 2555)
+    @Column(name = "descripcion_gastos_generales", length = 255)
     private String descripcionGastosGenerales;
 
     @Column(name ="monto_gastos_generales", precision = 10, scale = 3)

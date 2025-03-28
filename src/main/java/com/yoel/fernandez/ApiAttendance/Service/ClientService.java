@@ -16,9 +16,6 @@ import lombok.RequiredArgsConstructor;
 public class ClientService {
     private final ClientRepository clientRepository;
 
-    public void crearCliente(Client client){
-        clientRepository.save(client);
-    }
 
     public List<ClientDTO> listarCliente(){
         List<Client> listaClientes = clientRepository.findAll();
@@ -28,7 +25,7 @@ public class ClientService {
 
     public ClientDTO convertirDTO(Client client){
         return new ClientDTO(
-            client.getCodCliente(),
+            String.valueOf(client.getCodCliente()),
             client.getNombreCliente(),
             client.getCorreoCliente(),
             client.getTelefonoCliente()
@@ -44,6 +41,7 @@ public class ClientService {
             clientRepository.save(client);
             
     }
+    
 
     public void eliminarCliente(String codigo) {
         if(clientRepository.existsById(codigo)){

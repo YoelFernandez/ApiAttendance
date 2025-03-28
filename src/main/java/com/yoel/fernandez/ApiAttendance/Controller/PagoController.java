@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.yoel.fernandez.ApiAttendance.DTO.PagoDTO;
-import com.yoel.fernandez.ApiAttendance.Entity.Pago;
 import com.yoel.fernandez.ApiAttendance.Service.PagoService;
 
 import lombok.RequiredArgsConstructor;
@@ -24,12 +23,8 @@ import lombok.RequiredArgsConstructor;
 public class PagoController {
     private final PagoService pagoService;
 
-    
-    @PostMapping("/nuevo")
-    private void crearPago(@RequestBody Pago pago){
-        pagoService.crearPago(pago);
-    }
-    
+
+
 
     @PostMapping("/nuevoDTO")
     private ResponseEntity<String> crearPagoDTO(@RequestBody PagoDTO pago){

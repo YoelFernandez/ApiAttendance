@@ -18,15 +18,11 @@ public class ServiceService {
 
 
 
-    public void crearServicio (ServiceEntity service){
-        serviceRepository.save(service);
-    }
-
     
 
     public ServiceEntityDTO convertirDTO(ServiceEntity serviceEntity){
         return  new ServiceEntityDTO(
-            serviceEntity.getCodigoServicio(),
+            String.valueOf(serviceEntity.getCodigoServicio()),
             serviceEntity.getNombreServicio(),
             serviceEntity.getTipoServicio().name()
         );
@@ -66,7 +62,7 @@ public class ServiceService {
 
     public ServiceEntityDTO nuevoServicio(ServiceEntityDTO serviceEntityDTO) {
         ServiceEntity service = new ServiceEntity();
-        service.setCodigoServicio(serviceEntityDTO.getCodigoServicio());
+        //service.setCodigoServicio(serviceEntityDTO.getCodigoServicio());
         service.setNombreServicio(serviceEntityDTO.getNombreServicio());
         service.setTipoServicio(ServiceEntity.tipoServicio.valueOf(serviceEntityDTO.getTipoServicio()));
         serviceRepository.save(service);

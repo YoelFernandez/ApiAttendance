@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yoel.fernandez.ApiAttendance.DTO.GastosGeneralesDTO;
-import com.yoel.fernandez.ApiAttendance.Entity.GastosGenerales;
 import com.yoel.fernandez.ApiAttendance.Service.GastosGeneralesService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,10 +25,6 @@ public class GastosGeneralesController {
 
     private final GastosGeneralesService gastosGeneralesService;
 
-    @PostMapping("/nuevo")
-    public void crearGastoGeneral(@RequestBody GastosGenerales gastosGenerales){
-        gastosGeneralesService.nuevoGasto(gastosGenerales);
-    }
 
     
     @PostMapping("/nuevoDTO")

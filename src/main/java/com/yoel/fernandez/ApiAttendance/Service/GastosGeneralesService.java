@@ -25,14 +25,10 @@ public class GastosGeneralesService {
     private final ObraRepository obraRepository;
     private final EmployedRepository employedRepository;
 
-    public void nuevoGasto(GastosGenerales gastosGenerales){
-        gastosGeneralesRepository.save(gastosGenerales);
-    }
-
    
     public void nuevoGastoDTO(GastosGeneralesDTO gastosGeneralesDTO){
         GastosGenerales gastosGenerales = new GastosGenerales();
-        gastosGenerales.setIdGastosGenerales(gastosGeneralesDTO.getIdGastosGenerales());
+        //gastosGenerales.setIdGastosGenerales(gastosGeneralesDTO.getIdGastosGenerales());
         gastosGenerales.setDescripcionGastosGenerales(gastosGeneralesDTO.getDescripcionGastosGenerales());
         gastosGenerales.setMontoGastosGenerales(gastosGeneralesDTO.getMontoGastosGenerales());
         gastosGenerales.setFechaEntrega(gastosGeneralesDTO.getFechaEntrega());
@@ -49,14 +45,14 @@ public class GastosGeneralesService {
 
     public GastosGeneralesDTO convert(GastosGenerales gastosGenerales){
         return new GastosGeneralesDTO(
-                gastosGenerales.getIdGastosGenerales(),
+                String.valueOf(gastosGenerales.getIdGastosGenerales()),
                 gastosGenerales.getDescripcionGastosGenerales(),
                 gastosGenerales.getMontoGastosGenerales(),
                 gastosGenerales.getFechaEntrega(), 
                 gastosGenerales.getMedioPago().name(),
                 gastosGenerales.getEstadoPago().name(),
-                gastosGenerales.getObra().getCodObra(),
-                gastosGenerales.getEmpleado().getCodigoEmpleado()
+                String.valueOf(gastosGenerales.getObra().getCodObra()),
+                String.valueOf(gastosGenerales.getEmpleado().getCodigoEmpleado())
             );
     }
 

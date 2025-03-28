@@ -14,9 +14,11 @@ import com.yoel.fernandez.ApiAttendance.Repositoy.ObraRepository;
 import com.yoel.fernandez.ApiAttendance.Repositoy.ServiceRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ObraService {
     private final ObraRepository obraRepository; 
     private final ClientRepository clientRepository;
@@ -26,40 +28,30 @@ public class ObraService {
     private final ServiceService serviceService;
 
 
-    public void crearObra(Obra obra){ 
-        obraRepository.save(obra);
-    }
-
     public Obra obtenerDatoId(String codigo){
         return obraRepository.findById(codigo).orElse(null);
     }
 
 
     public ObraDTO createObra(ObraDTO obraDTO) {
-        // Buscar Cliente o crearlo si no existe
-        Client cliente = clientRepository.findById(obraDTO.getCliente().getCodCliente())
-                .orElseGet(() -> {
-                    Client nuevoCliente = new Client();
-                    nuevoCliente.setCodCliente(obraDTO.getCliente().getCodCliente());
-                    nuevoCliente.setNombreCliente(obraDTO.getCliente().getNombreCliente());
-                    nuevoCliente.setCorreoCliente(obraDTO.getCliente().getCorreoCliente());
-                    nuevoCliente.setTelefonoCliente(obraDTO.getCliente().getTelefonoCliente());
-                    return clientRepository.save(nuevoCliente);
-                });
+        Client nuevoCliente = new Client();
+        //nuevoCliente.setCodCliente(obraDTO.getCliente().getCodCliente());
+        nuevoCliente.setNombreCliente(obraDTO.getCliente().getNombreCliente());
+        nuevoCliente.setCorreoCliente(obraDTO.getCliente().getCorreoCliente());
+        nuevoCliente.setTelefonoCliente(obraDTO.getCliente().getTelefonoCliente());
+        
+       
 
-        // Buscar Servicio o crearlo si no existe
-        ServiceEntity servicio = serviceRepository.findById(obraDTO.getServicio().getCodigoServicio())
-                .orElseGet(() -> {
-                    ServiceEntity nuevoServicio = new ServiceEntity();
-                    nuevoServicio.setCodigoServicio(obraDTO.getServicio().getCodigoServicio());
-                    nuevoServicio.setNombreServicio(obraDTO.getServicio().getNombreServicio());
-                    nuevoServicio.setTipoServicio(ServiceEntity.tipoServicio.valueOf(obraDTO.getServicio().getTipoServicio())); // Convertir String a Enum
-                    return serviceRepository.save(nuevoServicio);
-                });
+
+        ServiceEntity nuevoServicio = new ServiceEntity();
+        //nuevoServicio.setCodigoServicio(obraDTO.getServicio().getCodigoServicio());
+        nuevoServicio.setNombreServicio(obraDTO.getServicio().getNombreServicio());
+        nuevoServicio.setTipoServicio(ServiceEntity.tipoServicio.valueOf(obraDTO.getServicio().getTipoServicio())); // Convertir String a Enum
+                
 
         // Crear Obra
         Obra obra = new Obra();
-        obra.setCodObra(obraDTO.getCodObra());
+        //obra.setCodObra(obraDTO.getCodObra());
         obra.setAbreviatura(obraDTO.getAbreviatura());
         obra.setNombreProyecto(obraDTO.getNombreProyecto());
         obra.setFechaInicio(obraDTO.getFechaInicio());
@@ -67,11 +59,11 @@ public class ObraService {
         obra.setEstado(Obra.estadoObra.valueOf(obraDTO.getEstado())); // Convertir String a Enum
         obra.setMontoContratado(obraDTO.getMontoContratado());
         obra.setAdicionales(obraDTO.getAdicionales());
-        obra.setCliente(cliente);
-        obra.setService(servicio);
+        obra.setCliente(clientRepository.save(nuevoCliente));
+        obra.setService(serviceRepository.save(nuevoServicio));
 
         obraRepository.save(obra); // Guardar en BD
-
+    
         return obraDTO; // Retornar DTO como respuesta
     }
 
@@ -82,7 +74,7 @@ public class ObraService {
             throw new IllegalArgumentException("La obra no tiene un cliente asociado.");
         }
         return new ObraDTO(
-            obra.getCodObra(),
+            String.valueOf(obra.getCodObra()),
             obra.getAbreviatura(),
             obra.getNombreProyecto(),
             obra.getFechaInicio(),

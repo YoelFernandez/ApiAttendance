@@ -5,11 +5,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -30,8 +33,8 @@ import lombok.NoArgsConstructor;
 public class Obra {
 
     @Id
-    @Column(name = "cod_obra", nullable = false, unique = true)
-    private String codObra;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 🔹 Auto-generación del código
+    private Integer codObra;
 
     @Column(name = "abreviatura", length = 4, nullable = false)
     private String abreviatura;

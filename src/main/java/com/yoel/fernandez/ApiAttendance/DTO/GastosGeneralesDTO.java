@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class GastosGeneralesDTO {
-    private Integer idGastosGenerales;
+    private String idGastosGenerales;
     private String descripcionGastosGenerales;
     private BigDecimal montoGastosGenerales;
     private LocalDate fechaEntrega;

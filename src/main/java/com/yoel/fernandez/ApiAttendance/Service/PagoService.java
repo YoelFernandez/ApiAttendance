@@ -19,16 +19,13 @@ public class PagoService {
     private final PagoRepository pagoRepository;
     private final EmployedRepository employedRepository; 
 
-    public void crearPago(Pago pago){
-        pagoRepository.save(pago);
-
-    }
+   
 
    
 
     public PagoDTO convertPago(Pago pago){
         return new PagoDTO(
-            pago.getCodigoPago(),
+            String.valueOf(pago.getCodigoPago()),
             pago.getMontoPago(),
             pago.getMedioPago().name(),
             pago.getEstadoPago().name(),
@@ -43,7 +40,7 @@ public class PagoService {
     }
     public void crearPagoDTO(PagoDTO pagoDTO){
         Pago pago = new Pago();
-        pago.setCodigoPago(pagoDTO.getCodigoPago());
+        //pago.setCodigoPago(pagoDTO.getCodigoPago());
         pago.setMontoPago(pagoDTO.getMontoPago()); 
         pago.setMedioPago(Pago.medioPago.valueOf(pagoDTO.getMedioPago())); // Convierte String a enum
         pago.setEstadoPago(Pago.estadoPago.valueOf(pagoDTO.getEstadoPago())); // Convierte String a enum

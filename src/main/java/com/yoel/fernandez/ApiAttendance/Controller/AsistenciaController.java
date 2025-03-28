@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yoel.fernandez.ApiAttendance.DTO.AsistenciaDTO;
-import com.yoel.fernandez.ApiAttendance.Entity.Asistencia;
 import com.yoel.fernandez.ApiAttendance.Service.AsistenciaService;
 
 import lombok.RequiredArgsConstructor;
