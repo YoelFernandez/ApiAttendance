@@ -20,6 +20,7 @@ public class ObraDTO {
     private String estado;
     private BigDecimal montoContratado;
     private String adicionales;
+    private String urlImage;
     private ClientDTO cliente;
     private ServiceEntityDTO servicio;
 }

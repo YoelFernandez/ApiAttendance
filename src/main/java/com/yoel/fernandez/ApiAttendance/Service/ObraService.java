@@ -13,6 +13,7 @@ import com.yoel.fernandez.ApiAttendance.Repositoy.ClientRepository;
 import com.yoel.fernandez.ApiAttendance.Repositoy.ObraRepository;
 import com.yoel.fernandez.ApiAttendance.Repositoy.ServiceRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,22 +33,19 @@ public class ObraService {
         return obraRepository.findById(codigo).orElse(null);
     }
 
-
-    public ObraDTO createObra(ObraDTO obraDTO) {
+    @Transactional
+    public ObraDTO createObra(ObraDTO obraDTO, String imageUrl) {
         Client nuevoCliente = new Client();
         //nuevoCliente.setCodCliente(obraDTO.getCliente().getCodCliente());
         nuevoCliente.setNombreCliente(obraDTO.getCliente().getNombreCliente());
         nuevoCliente.setCorreoCliente(obraDTO.getCliente().getCorreoCliente());
         nuevoCliente.setTelefonoCliente(obraDTO.getCliente().getTelefonoCliente());
-        
-       
 
 
         ServiceEntity nuevoServicio = new ServiceEntity();
         //nuevoServicio.setCodigoServicio(obraDTO.getServicio().getCodigoServicio());
         nuevoServicio.setNombreServicio(obraDTO.getServicio().getNombreServicio());
         nuevoServicio.setTipoServicio(ServiceEntity.tipoServicio.valueOf(obraDTO.getServicio().getTipoServicio())); // Convertir String a Enum
-                
 
         // Crear Obra
         Obra obra = new Obra();
@@ -59,9 +57,9 @@ public class ObraService {
         obra.setEstado(Obra.estadoObra.valueOf(obraDTO.getEstado())); // Convertir String a Enum
         obra.setMontoContratado(obraDTO.getMontoContratado());
         obra.setAdicionales(obraDTO.getAdicionales());
+        obra.setUrlImage(imageUrl);
         obra.setCliente(clientRepository.save(nuevoCliente));
         obra.setService(serviceRepository.save(nuevoServicio));
-
         obraRepository.save(obra); // Guardar en BD
     
         return obraDTO; // Retornar DTO como respuesta
@@ -82,6 +80,7 @@ public class ObraService {
             obra.getEstado().name(),
             obra.getMontoContratado(),
             obra.getAdicionales(),
+            obra.getUrlImage(),
             clientService.convertirDTO(cliente),
             serviceService.convertirDTO(obra.getService())
         );

@@ -59,6 +59,8 @@ public class Obra {
     @Column(name = "Adicionales", length = 255)
     private String adicionales;
 
+    private String urlImage;
+    
     @ManyToOne
     @JoinColumn(name = "codCliente")
     private Client cliente;
