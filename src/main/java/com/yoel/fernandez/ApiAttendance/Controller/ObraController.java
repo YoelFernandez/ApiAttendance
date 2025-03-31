@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -36,13 +36,13 @@ public class ObraController {
 
     @PostMapping(value= "/nuevoDTO", consumes = "multipart/form-data")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ObraDTO createObra(@RequestParam("file") MultipartFile file, @RequestParam("obra") ObraDTO obraDTO){
+    public ObraDTO createObra(@RequestParam("file") MultipartFile file, @RequestPart("obraDTO") ObraDTO obraDTO){
         try {
-        String imageUrl = uploadFileService.uploadFile(file);
-        return obraService.createObra(obraDTO, imageUrl);
-    } catch (IOException e) {
-        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al subir el archivo", e);
-    }
+            String imageUrl = uploadFileService.uploadFile(file);
+            return obraService.createObra(obraDTO, imageUrl);
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al subir el archivo", e);
+        }
        
     }
 
