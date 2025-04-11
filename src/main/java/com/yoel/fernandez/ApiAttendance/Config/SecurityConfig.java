@@ -1,5 +1,7 @@
 package com.yoel.fernandez.ApiAttendance.Config;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,8 +17,12 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -41,13 +47,9 @@ public class SecurityConfig implements WebMvcConfigurer{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+            .cors(withDefaults())
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/obra/listarDTO").permitAll()
-                .requestMatchers("/client/nuevoDTO").permitAll()
-                .requestMatchers("/client/listarDTO").permitAll()
-                .requestMatchers("/client/actualizar/**").permitAll()  // Permite actualizaciones de clientes
-                .requestMatchers("/client/**").permitAll()  // Permite obtener cliente por ID
                 .requestMatchers("/api/auth/login").permitAll()
                 .requestMatchers("/private/**").hasAuthority("ADMIN")
                 .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
@@ -65,13 +67,17 @@ public class SecurityConfig implements WebMvcConfigurer{
     }
 
 
-    // Habilitar CORS globalmente
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("http://localhost:4200/", "https://tu-dominio.com") // Los orígenes permitidos
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Métodos permitidos
-                .allowedHeaders("*") // Permite todos los encabezados
-                .allowCredentials(true); // Permite credenciales como cookies o encabezados Authorization
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of("https://apiattendance-e45ff.web.app")); // 👈 ORIGEN PERMITIDO
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*")); // o puedes especificar "Authorization", "Content-Type", etc.
+        config.setAllowCredentials(true); // 👈 NECESARIO si usas cookies o Authorization header
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 }
