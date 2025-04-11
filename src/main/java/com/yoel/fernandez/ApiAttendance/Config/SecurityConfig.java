@@ -71,7 +71,7 @@ public class SecurityConfig implements WebMvcConfigurer{
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("https://apiattendance-e45ff.web.app")); // 👈 ORIGEN PERMITIDO
+        config.setAllowedOrigins(List.of("https://apiattendance-e45ff.web.app", "http://localhost:4200")); // 👈 ORIGEN PERMITIDO
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*")); // o puedes especificar "Authorization", "Content-Type", etc.
         config.setAllowCredentials(true); // 👈 NECESARIO si usas cookies o Authorization header
