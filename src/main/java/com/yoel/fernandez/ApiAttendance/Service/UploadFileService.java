@@ -1,6 +1,9 @@
 package com.yoel.fernandez.ApiAttendance.Service;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -73,4 +76,37 @@ public class UploadFileService {
         
         return urls;
     }
+
+    public List<String> listarPorFecha(LocalDate fechaDeseada) {
+        List<String> urlsFiltradas = new ArrayList<>();
+
+        for (BlobItem blobItem : containerClient.listBlobs()) {
+            BlobClient blobClient = containerClient.getBlobClient(blobItem.getName());
+            OffsetDateTime lastModified = blobClient.getProperties().getLastModified();
+
+            // Convertir OffsetDateTime a LocalDate
+            LocalDate fechaBlob = lastModified.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            // Comparar con la fecha deseada
+            if (fechaBlob.equals(fechaDeseada)) {
+                urlsFiltradas.add(blobClient.getBlobUrl());
+            }
+        }
+
+        return urlsFiltradas;
+    }
+    
+
+    public boolean eliminarImagen(String nombreArchivo) {
+        BlobClient blobClient = containerClient.getBlobClient(nombreArchivo);
+    
+        if (blobClient.exists()) {
+            blobClient.delete();
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+
 }
