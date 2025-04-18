@@ -26,6 +26,10 @@ public class UploadFileController {
 
     private final UploadFileService uploadFileService;
 
+    public String extraerNombreDesdeUrl(String url) {
+        return url.substring(url.lastIndexOf("/") + 1);
+    }
+
     @PostMapping("/upload")
     public ResponseEntity<Map<String, String>> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
@@ -56,6 +60,28 @@ public class UploadFileController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró la imagen.");
         }
+    }
+
+
+    @DeleteMapping("/eliminar-por-fecha")
+    public ResponseEntity<String> eliminarImagenesPorFecha(
+        @RequestParam("fecha") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {
+    
+        List<String> imagenesPorFecha = uploadFileService.listarPorFecha(fecha);
+
+        if (imagenesPorFecha.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontraron imágenes para esa fecha.");
+        }
+
+        int eliminadas = 0;
+        // for (String url : imagenesPorFecha) {
+        //     String nombreArchivo = extraerNombreDesdeUrl(url);
+        //     if (uploadFileService.eliminarImagen(nombreArchivo)) {
+        //         eliminadas++;
+        //     }
+        // }
+
+        return ResponseEntity.ok(eliminadas + " imágenes eliminadas correctamente para la fecha " + fecha + "cantidad de imagenes: "+ imagenesPorFecha.size());
     }
     
 
